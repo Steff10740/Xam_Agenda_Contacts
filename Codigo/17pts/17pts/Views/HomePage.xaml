@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:_17pts.Controls"
+             x:Name="homePage"
+             x:Class="_17pts.Views.HomePage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem NavigationPage.HasNavigationBar="True" Name="Item1" Priority="0"/>
+    </ContentPage.ToolbarItems>
+    <ListView ItemsSource="{Binding Contacts}" 
+              HasUnevenRows="True" 
+              SelectedItem="{Binding SelectedContacts}" 
+              IsGroupingEnabled="True"
+              GroupDisplayBinding="{Binding Key}"           
+              >
+        
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <controls:ContactView/>
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Delete" Command="{Binding Source={x:Reference homePage}, 
+                            Path=BindingContext.DeleteCommand}" CommandParameter="{Binding}"/>
+                    </ViewCell.ContextActions>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        
+        <ListView.Header>
+            <Button Command="{Binding AddCommand}" Text="Add"/>
+        </ListView.Header>
+   
+    </ListView>
+</ContentPage>
